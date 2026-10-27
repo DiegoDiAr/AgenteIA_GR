@@ -37,9 +37,15 @@ Usa la clave API de la cuenta de **Grupo Rentabilizarme**, con las propiedades h
 - Precio publicado, ubicación pública, descripción completa, características disponibles y enlace público cuando Tokko lo entrega. Se respeta `web_price=false` y se excluyen comentarios internos y dirección privada `real_address`.
 - Galería con todas las miniaturas, contador, navegación anterior/siguiente y flechas del teclado. `Escape` cierra la galería; las imágenes se cargan de forma diferida cuando corresponde.
 - «¿Cuánto cuesta la segunda?» usa los datos del contexto; «muéstrame todas sus fotos» muestra la ficha conocida sin otra búsqueda. Abrir una ficha no cambia el orden del último listado.
+- Enlaces oficiales de `/Propiedades/Detalle?id=...` e IDs explícitos de Tokko pueden consultarse sin una búsqueda anterior. Se devuelve la misma ficha y galería del chat, y se conserva la referencia para preguntas posteriores.
+- Al modificar criterios se heredan los anteriores: un presupuesto nuevo sustituye el límite previo y conserva ubicación, operación, tipo y moneda. La herramienta usa `reset_fields` para quitar preferencias explícitamente; no obliga al cliente a completar un formulario.
 - Saludos y agradecimientos reciben una respuesta normal: `tool_choice: auto` deja a la IA decidir; no se disparan búsquedas mediante palabras clave del navegador.
 
 Las características libres, como piscina o terraza, se contrastan **exclusivamente con etiquetas explícitas de Tokko** (con equivalencias como piscina/pileta). No basta una mención en la descripción: podría decir «sin piscina» o referirse a una piscina cercana. Se revisan hasta 100 candidatos por página y se informa cuando quedan más. La ausencia de una etiqueta no demuestra que el atributo no exista físicamente; el asistente explica esta limitación. Los filtros numéricos se envían a Tokko. La superficie usa la unidad publicada por Tokko; el asistente pide precisión cuando corresponde, sin convertir unidades ni monedas automáticamente.
+
+La resolución geográfica usa la jerarquía de Tokko y prefiere Lima metropolitana cuando un nombre tiene homónimos en otras provincias de la región. Una provincia indicada expresamente participa en la resolución; las ambigüedades que permanecen se devuelven como `needsLocation`, sin consultar un inventario con ubicación equivocada.
+
+Los enlaces se recuperan exclusivamente desde el dominio oficial (HTTPS, sin seguir redirecciones). El ID de la web no se considera automáticamente un ID de Tokko: se extrae el candidato de las imágenes Tokko publicadas en la página y se verifica una coincidencia con las fotos de la ficha devuelta por la cuenta API. Si falta esa evidencia, la herramienta explica que no puede resolver la publicación. Los datos y la galería se obtienen de Tokko, no se fabrican a partir del texto de la página.
 
 ## Pruebas
 
@@ -49,6 +55,8 @@ npm run check:live
 ```
 
 `npm test` ejecuta pruebas aisladas con servicios simulados: filtros y moneda, ubicaciones ambiguas, paginación, fotos completas, referencias, refinamientos, errores, sesiones independientes y rutas privadas. Los datos sintéticos viven exclusivamente en las pruebas y **nunca se sirven en el chat real**. Estas pruebas no demuestran que una cuenta real tenga acceso o inventario.
+
+`test/conversation.test.mjs` cubre los casos A–G, cambios de presupuesto con conservación de criterios, aclaraciones geográficas, enlaces con IDs distintos, fallos técnicos y entrega de fichas y fotos por HTTP. Las respuestas de OpenAI están programadas: se comprueban las herramientas y el contexto, no las decisiones de un modelo real. Evaluar la naturalidad y la elección de herramientas requiere una conversación real con autorización para consumir API.
 
 `npm run check:live` hace consultas **reales** a OpenAI y Tokko y consume la cuota correspondiente. Primero comprueba un saludo sin búsqueda, luego solicita propiedades y comprueba la referencia a una ficha y sus fotos. No imprime claves, cuerpos upstream ni URLs privadas. Si faltan credenciales se detiene e indica la configuración necesaria. Opcionalmente establece `LIVE_SEARCH_MESSAGE` con una búsqueda concreta de tu catálogo.
 
