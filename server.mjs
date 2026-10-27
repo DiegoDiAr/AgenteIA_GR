@@ -12,6 +12,9 @@ try { loadEnvFile(fileURLToPath(new URL('.env', import.meta.url))); } catch (err
 
 const TTL = 2 * 60 * 60 * 1000;
 const files = new Map([['/', ['index.html', 'text/html; charset=utf-8']], ['/app.js', ['app.js', 'text/javascript; charset=utf-8']], ['/styles.css', ['styles.css', 'text/css; charset=utf-8']]]);
+for (const route of ['/demo', '/demo/']) files.set(route, ['demo.html', 'text/html; charset=utf-8']);
+files.set('/demo.css', ['demo.css', 'text/css; charset=utf-8']);
+files.set('/demo.js', ['demo.js', 'text/javascript; charset=utf-8']);
 export function createApp({ env = process.env, fetchImpl = fetch, chatImpl } = {}) {
   const sessions = new Map();
   const tokko = createTokko({ apiKey: env.TOKKO_API_KEY, fetchImpl });

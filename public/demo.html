@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#123e32">
+  <meta name="description" content="Demostración de mensajería del asistente inmobiliario de Grupo Rentabilizarme.">
+  <title>Demo de mensajería · Grupo Rentabilizarme</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/demo.css">
+  <script type="module" src="/demo.js"></script>
+</head>
+<body class="demo">
+  <header class="demo-topbar">
+    <a class="brand" href="/" aria-label="Grupo Rentabilizarme, interfaz original">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M7 33V13l13-7 13 7v20M15 33V20h10v13M4 33h32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><span class="brand-small">GRUPO</span><strong>Rentabilizarme</strong></span>
+    </a>
+    <span class="demo-tag"><span aria-hidden="true"></span> Prototipo de mensajería</span>
+  </header>
+  <main class="demo-layout">
+    <aside class="demo-sidebar" aria-label="Acerca de la demostración">
+      <div class="demo-sidebar-title"><span class="demo-eyebrow">ESPACIO DE DEMOSTRACIÓN</span><h1>Una conversación.<br>Más posibilidades.</h1><p>Encuentra tu próximo espacio con un asesor que sigue el hilo.</p></div>
+      <div class="demo-contact"><div class="demo-avatar" aria-hidden="true">GR<span></span></div><div><strong>Asistente inmobiliario</strong><p>Grupo Rentabilizarme</p></div><span class="demo-contact-tag">Demo</span></div>
+      <div class="demo-sidebar-note"><span class="demo-eyebrow">A TU RITMO</span><p>Explora propiedades.<br>Compara tus opciones.<br>Conoce cada espacio.</p><div class="demo-location"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="10" r="2" stroke="currentColor" stroke-width="1.5"/></svg>Lima, Perú</div></div>
+      <a class="demo-original" href="/">Abrir interfaz original <span aria-hidden="true">↗</span></a>
+      <p class="demo-sidebar-footer">Tecnología al servicio de tu próximo paso.</p>
+    </aside>
+    <section class="chat-panel" aria-label="Demostración de chat inmobiliario">
+      <header class="demo-chat-header">
+        <div class="demo-avatar" aria-hidden="true">GR<span></span></div>
+        <div class="demo-chat-identity"><h2>Grupo Rentabilizarme</h2><span class="status" id="connection-status">Comprobando conexión</span></div>
+        <button id="new-chat" class="demo-reset" type="button" aria-label="Iniciar nueva conversación"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 11a8 8 0 1 1 2 6M4 5v6h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Nueva conversación</span></button>
+      </header>
+      <p id="demo-disclaimer" class="demo-disclaimer"><span class="demo-simulation-label">SIMULACIÓN WHATSAPP</span> Simulación de la experiencia WhatsApp. Sin conexión con WhatsApp Business.</p>
+      <div id="config-notice" class="notice" role="status" hidden></div>
+      <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions" aria-label="Mensajes de la conversación">
+        <div class="demo-day">Tu próximo espacio empieza aquí</div>
+        <div id="welcome" class="welcome"><span class="message-label">GRUPO RENTABILIZARME</span><p>Hola, bienvenido. ¿Qué propiedad tienes en mente?</p><p class="muted">Cuéntame qué buscas y exploramos las opciones juntos.</p></div>
+      </div>
+      <div class="composer-wrap">
+        <div id="error" class="error" role="alert" hidden></div>
+        <form id="chat-form" class="composer"><label class="sr-only" for="message">Escribe tu mensaje</label><textarea id="message" name="message" rows="1" maxlength="4000" placeholder="Escribe un mensaje…" required></textarea><button id="send" class="send" type="submit" aria-label="Enviar mensaje"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 4 15 8-15 8 3-8-3-8Zm3 8h12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button></form>
+        <p class="composer-note">Asistente con IA · Confirma detalles y disponibilidad con Grupo Rentabilizarme.</p>
+      </div>
+    </section>
+  </main>
+  <p class="demo-footnote">Una nueva forma de encontrar tu lugar.</p>
+  <dialog id="gallery" class="gallery" aria-labelledby="gallery-title"><div class="gallery-shell"><header class="gallery-header"><div><h2 id="gallery-title">Fotografías</h2><p id="gallery-count"></p></div><button id="gallery-close" class="gallery-close" type="button" aria-label="Cerrar galería">Cerrar <span aria-hidden="true">×</span></button></header><div class="gallery-stage"><button id="gallery-prev" class="gallery-arrow prev" type="button" aria-label="Fotografía anterior">‹</button><div id="gallery-image-slot"></div><p id="gallery-image-error" hidden>Esta fotografía no pudo cargarse. Puedes intentar abrir la ficha pública.</p><button id="gallery-next" class="gallery-arrow next" type="button" aria-label="Fotografía siguiente">›</button></div><p id="gallery-caption" class="gallery-caption"></p><div id="gallery-thumbs" class="gallery-thumbs" aria-label="Todas las fotografías"></div></div></dialog>
+</body>
+</html>

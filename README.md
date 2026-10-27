@@ -28,6 +28,12 @@ Usa la clave API de la cuenta de **Grupo Rentabilizarme**, con las propiedades h
 
 `OPENAI_MODEL` permite elegir otro modelo que admita Responses API y function calling, accesible desde tu cuenta. La API de OpenAI necesita una clave y cuota de API disponibles. La cobertura comercial actual es Lima, Perú: si falta distrito se consulta Lima completa, con ubicaciones e IDs resueltos desde Tokko. No hay una lista cerrada de distritos. Si el puerto no está disponible cambia `PORT`.
 
+## Demostración de mensajería
+
+La vista independiente [/demo](http://127.0.0.1:8787/demo) usa el mismo cliente, endpoint, sesiones y agente que la interfaz original. Presenta fichas compactas que se recorren horizontalmente y conserva la galería completa. Es una simulación de la experiencia WhatsApp, sin conexión con WhatsApp Business ni Meta Cloud API. El servidor normal sigue usando las APIs reales cuando se envían mensajes.
+
+La guía [docs/DEMO-CARLOS.md](docs/DEMO-CARLOS.md) incluye escenarios de evaluación y criterios comparables. Para revisar la interfaz sin llamadas externas, ejecuta `node scripts/demo-test-server.mjs` y abre `http://127.0.0.1:8789/demo`: el aviso permanente, las fichas y las imágenes identifican que todo son datos sintéticos.
+
 ## Funcionalidad
 
 - Conversación natural con OpenAI y contexto mantenido en el servidor.
