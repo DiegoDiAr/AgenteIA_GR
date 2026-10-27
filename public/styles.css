@@ -1,0 +1,664 @@
+:root{
+  font-family:"Segoe UI",system-ui,sans-serif;
+  color:#172e27;
+  background:#f8faf7;
+  font-synthesis:none;
+  --green:#123e32;
+  --muted:#5b6c63;
+  --line:#dce5de;
+  --accent:#c8dfbf;
+  --paper:#fff;
+  scrollbar-color:#a4b7a9 #f8faf7}
+  *{
+    box-sizing:border-box}
+    body{
+      margin:0}
+      button,textarea{
+        font:inherit}
+        button,a,textarea{
+          -webkit-tap-highlight-color:transparent}
+          button{
+            cursor:pointer}
+            button:disabled{
+              cursor:wait;
+              opacity:.5}
+              a{
+                color:inherit;
+                text-underline-offset:4px}
+                ::selection{
+                  background:#c8dfbf;
+                  color:#123e32}
+                  :focus-visible{
+                    outline:3px solid #74955e;
+                    outline-offset:4px}
+                    button{
+                      color:inherit}
+                      button svg{
+                        width:24px;
+                        height:24px}
+                        button,.brand{
+                          transition:background .18s ease,color .18s ease}
+                          button:hover{
+                            background-color:#edf3ec}
+                            [hidden]{
+                              display:none!important}
+                              .header{
+                                height:94px;
+                                border-bottom:1px solid var(--line);
+                                display:flex;
+                                justify-content:space-between;
+                                align-items:center;
+                                padding:0 4.5%;
+                                background:#fff}
+                                .brand{
+                                  display:flex;
+                                  align-items:center;
+                                  gap:10px;
+                                  text-decoration:none}
+                                  .brand svg{
+                                    width:41px;
+                                    height:41px;
+                                    color:var(--green)}
+                                    .brand-small{
+                                      display:block;
+                                      font-size:10px;
+                                      letter-spacing:.19em;
+                                      margin-bottom:1px}
+                                      .brand strong{
+                                        font-size:21px;
+                                        letter-spacing:-.04em;
+                                        font-weight:650}
+                                        .header-actions{
+                                          display:flex;
+                                          align-items:center;
+                                          gap:27px;
+                                          font-size:12px}
+                                          .status{
+                                            color:var(--muted);
+                                            display:flex;
+                                            align-items:center;
+                                            gap:7px}
+                                            .status:before{
+                                              content:"";
+                                              width:6px;
+                                              height:6px;
+                                              border-radius:50%;
+                                              background:#7b8c80}
+                                              .status.ready:before{
+                                                background:#267849}
+                                                .text-button{
+                                                  border:1px solid var(--line);
+                                                  padding:10px 14px;
+                                                  background:white;
+                                                  border-radius:6px;
+                                                  font-size:12px}
+                                                  .workspace{
+                                                    display:grid;
+                                                    grid-template-columns:minmax(280px,33%) minmax(0,1fr);
+                                                    max-width:1600px;
+                                                    margin:auto;
+                                                    min-height:calc(100dvh - 94px)}
+                                                    .intro{
+                                                      padding:58px 13% 28px 13.5%;
+                                                      display:flex;
+                                                      flex-direction:column;
+                                                      justify-content:space-between;
+                                                      gap:40px;
+                                                      border-right:1px solid var(--line);
+                                                      background:#eff3eb}
+                                                      .house-mark{
+                                                        width:77px;
+                                                        height:77px;
+                                                        margin-bottom:35px;
+                                                        color:#315542}
+                                                        .house-mark svg{
+                                                          width:100%;
+                                                          height:100%}
+                                                          h1{
+                                                            font-family:Georgia,"Times New Roman",serif;
+                                                            font-weight:400;
+                                                            font-size:clamp(30px,3.3vw,50px);
+                                                            line-height:1.13;
+                                                            letter-spacing:-.035em;
+                                                            margin:0 0 23px;
+                                                            text-wrap:balance}
+                                                            .intro-body>p{
+                                                              font-size:14px;
+                                                              line-height:1.8;
+                                                              color:#4f6557;
+                                                              margin:0;
+                                                              max-width:32ch}
+                                                              .intro-note{
+                                                                margin-top:45px;
+                                                                display:flex;
+                                                                gap:16px;
+                                                                align-items:flex-start}
+                                                                .small-rule{
+                                                                  display:block;
+                                                                  width:24px;
+                                                                  height:1px;
+                                                                  background:#74915e;
+                                                                  margin-top:10px;
+                                                                  flex-shrink:0}
+                                                                  .intro-note p{
+                                                                    font-size:12px;
+                                                                    line-height:1.9;
+                                                                    margin:0;
+                                                                    color:#4f6557}
+                                                                    .aside-footer{
+                                                                      font-size:9px;
+                                                                      letter-spacing:.12em;
+                                                                      line-height:1.7;
+                                                                      color:#52694f;
+                                                                      margin:0}
+                                                                      .aside-footer span{
+                                                                        display:block;
+                                                                        font-size:10px;
+                                                                        letter-spacing:0}
+                                                                        .chat-panel{
+                                                                          background:var(--paper);
+                                                                          display:flex;
+                                                                          flex-direction:column;
+                                                                          height:calc(100dvh - 94px);
+                                                                          min-height:510px;
+                                                                          position:relative}
+                                                                          .chat-heading{
+                                                                            display:flex;
+                                                                            align-items:center;
+                                                                            gap:12px;
+                                                                            padding:25px 6%;
+                                                                            border-bottom:1px solid var(--line);
+                                                                            flex-shrink:0}
+                                                                            .assistant-dot{
+                                                                              width:10px;
+                                                                              height:10px;
+                                                                              background:var(--green);
+                                                                              border-radius:50%}
+                                                                              .chat-heading h2{
+                                                                                font-weight:600;
+                                                                                font-size:15px;
+                                                                                letter-spacing:-.02em;
+                                                                                margin:0 0 4px}
+                                                                                .chat-heading p{
+                                                                                  font-size:11px;
+                                                                                  margin:0;
+                                                                                  color:var(--muted)}
+                                                                                  .notice{
+                                                                                    font-size:12px;
+                                                                                    line-height:1.6;
+                                                                                    padding:12px 6%;
+                                                                                    background:#f6f4eb;
+                                                                                    color:#64552d;
+                                                                                    border-bottom:1px solid #e6deca}
+                                                                                    .messages{
+                                                                                      flex:1;
+                                                                                      overflow-y:auto;
+                                                                                      padding:36px 6% 22px;
+                                                                                      scroll-behavior:smooth;
+                                                                                      overscroll-behavior:contain}
+                                                                                      .welcome{
+                                                                                        max-width:580px;
+                                                                                        padding:4px 0 20px}
+                                                                                        .message-label{
+                                                                                          font-size:9px;
+                                                                                          letter-spacing:.14em;
+                                                                                          font-weight:700;
+                                                                                          color:#536d5b;
+                                                                                          display:block;
+                                                                                          margin-bottom:12px}
+                                                                                          .welcome>p{
+                                                                                            font-size:18px;
+                                                                                            line-height:1.65;
+                                                                                            margin:0 0 12px;
+                                                                                            max-width:36ch}
+                                                                                            .welcome>p.muted{
+                                                                                              font-size:14px;
+                                                                                              color:var(--muted);
+                                                                                              max-width:46ch;
+                                                                                              line-height:1.8}
+                                                                                              .suggestions{
+                                                                                                margin-top:32px;
+                                                                                                display:flex;
+                                                                                                flex-direction:column;
+                                                                                                align-items:stretch;
+                                                                                                max-width:380px}
+                                                                                                .suggestions button{
+                                                                                                  background:transparent;
+                                                                                                  border:0;
+                                                                                                  border-bottom:1px solid var(--line);
+                                                                                                  padding:15px 0;
+                                                                                                  display:flex;
+                                                                                                  justify-content:space-between;
+                                                                                                  gap:18px;
+                                                                                                  text-align:left;
+                                                                                                  font-size:12px}
+                                                                                                  .suggestions button span{
+                                                                                                    color:#63805a}
+                                                                                                    .suggestions button:hover{
+                                                                                                      color:#316841;
+                                                                                                      background:#f7faf5}
+                                                                                                      .composer-wrap{
+                                                                                                        padding:14px 6% 20px;
+                                                                                                        background:white;
+                                                                                                        flex-shrink:0}
+                                                                                                        .composer{
+                                                                                                          display:flex;
+                                                                                                          align-items:flex-end;
+                                                                                                          gap:10px;
+                                                                                                          border:1px solid #b9cabc;
+                                                                                                          background:#fff;
+                                                                                                          padding:10px 10px 10px 17px;
+                                                                                                          border-radius:12px}
+                                                                                                          .composer:focus-within{
+                                                                                                            border-color:#426b4e;
+                                                                                                            box-shadow:0 2px 10px #123e320a}
+                                                                                                            textarea{
+                                                                                                              width:100%;
+                                                                                                              border:0;
+                                                                                                              outline:none;
+                                                                                                              resize:none;
+                                                                                                              line-height:1.6;
+                                                                                                              padding:6px 0;
+                                                                                                              min-height:35px;
+                                                                                                              max-height:135px;
+                                                                                                              background:transparent;
+                                                                                                              font-size:14px;
+                                                                                                              color:#172e27;
+                                                                                                              caret-color:var(--green)}
+                                                                                                              textarea:focus-visible{
+                                                                                                                outline:none}
+                                                                                                                textarea::placeholder{
+                                                                                                                  color:#687a6d}
+                                                                                                                  .send{
+                                                                                                                    width:37px;
+                                                                                                                    height:37px;
+                                                                                                                    border:0;
+                                                                                                                    border-radius:8px;
+                                                                                                                    background:var(--green);
+                                                                                                                    color:white;
+                                                                                                                    display:grid;
+                                                                                                                    place-items:center;
+                                                                                                                    flex-shrink:0}
+                                                                                                                    .send:hover{
+                                                                                                                      background:#225e49}
+                                                                                                                      .composer-note{
+                                                                                                                        text-align:center;
+                                                                                                                        font-size:10px;
+                                                                                                                        color:#657469;
+                                                                                                                        line-height:1.6;
+                                                                                                                        margin:11px 0 0}
+                                                                                                                        .message{
+                                                                                                                          margin:0 0 28px;
+                                                                                                                          max-width:100%;
+                                                                                                                          overflow-wrap:anywhere}
+                                                                                                                          .message.user{
+                                                                                                                            margin-left:auto;
+                                                                                                                            max-width:85%;
+                                                                                                                            width:fit-content;
+                                                                                                                            padding:12px 17px;
+                                                                                                                            background:#eff4ec;
+                                                                                                                            border-radius:14px 14px 3px 14px}
+                                                                                                                            .message.user .message-label{
+                                                                                                                              display:none}
+                                                                                                                              .message-text{
+                                                                                                                                white-space:pre-wrap;
+                                                                                                                                font-size:14px;
+                                                                                                                                line-height:1.8;
+                                                                                                                                margin:0;
+                                                                                                                                max-width:72ch}
+                                                                                                                                .message.assistant .message-label{
+                                                                                                                                  margin-bottom:7px}
+                                                                                                                                  .pending{
+                                                                                                                                    font-size:12px;
+                                                                                                                                    color:var(--muted);
+                                                                                                                                    padding-bottom:18px;
+                                                                                                                                    display:flex;
+                                                                                                                                    gap:9px;
+                                                                                                                                    align-items:center}
+                                                                                                                                    .pending:before{
+                                                                                                                                      content:"";
+                                                                                                                                      width:7px;
+                                                                                                                                      height:7px;
+                                                                                                                                      border-radius:50%;
+                                                                                                                                      background:#648154;
+                                                                                                                                      animation:breathe 1.2s ease-in-out infinite alternate}
+                                                                                                                                      .error{
+                                                                                                                                        color:#8b302c;
+                                                                                                                                        background:#fff2ee;
+                                                                                                                                        font-size:12px;
+                                                                                                                                        line-height:1.6;
+                                                                                                                                        padding:12px;
+                                                                                                                                        margin-bottom:12px;
+                                                                                                                                        border-radius:6px}
+                                                                                                                                        .error button{
+                                                                                                                                          margin-left:8px;
+                                                                                                                                          text-decoration:underline;
+                                                                                                                                          border:0;
+                                                                                                                                          background:transparent;
+                                                                                                                                          color:inherit}
+                                                                                                                                          .result-list{
+                                                                                                                                            display:grid;
+                                                                                                                                            grid-template-columns:repeat(2,minmax(0,1fr));
+                                                                                                                                            gap:22px 16px;
+                                                                                                                                            margin:18px 0 8px}
+                                                                                                                                            .property{
+                                                                                                                                              min-width:0;
+                                                                                                                                              border-bottom:1px solid var(--line);
+                                                                                                                                              padding-bottom:20px}
+                                                                                                                                              .property.single{
+                                                                                                                                                grid-column:1 / -1;
+                                                                                                                                                max-width:600px}
+                                                                                                                                                .property-media{
+                                                                                                                                                  height:170px;
+                                                                                                                                                  position:relative;
+                                                                                                                                                  background:#edf1eb;
+                                                                                                                                                  border-radius:8px;
+                                                                                                                                                  overflow:hidden;
+                                                                                                                                                  display:flex;
+                                                                                                                                                  align-items:center;
+                                                                                                                                                  justify-content:center}
+                                                                                                                                                  .property.single .property-media{
+                                                                                                                                                    height:250px}
+                                                                                                                                                    .property-media>img{
+                                                                                                                                                      width:100%;
+                                                                                                                                                      height:100%;
+                                                                                                                                                      object-fit:cover;
+                                                                                                                                                      cursor:zoom-in}
+                                                                                                                                                      .no-photo{
+                                                                                                                                                        font-size:12px;
+                                                                                                                                                        color:#53675a;
+                                                                                                                                                        text-align:center;
+                                                                                                                                                        padding:12px}
+                                                                                                                                                        .photo-count{
+                                                                                                                                                          position:absolute;
+                                                                                                                                                          bottom:9px;
+                                                                                                                                                          right:9px;
+                                                                                                                                                          border:0;
+                                                                                                                                                          border-radius:5px;
+                                                                                                                                                          padding:7px 9px;
+                                                                                                                                                          background:#fffffff2;
+                                                                                                                                                          font-size:10px;
+                                                                                                                                                          font-weight:600}
+                                                                                                                                                          .photo-count:hover{
+                                                                                                                                                            background:#fff}
+                                                                                                                                                            .property-meta{
+                                                                                                                                                              font-size:10px;
+                                                                                                                                                              color:#526957;
+                                                                                                                                                              margin:13px 0 6px;
+                                                                                                                                                              display:flex;
+                                                                                                                                                              justify-content:space-between;
+                                                                                                                                                              gap:8px}
+                                                                                                                                                              .property h3{
+                                                                                                                                                                font-size:15px;
+                                                                                                                                                                font-weight:600;
+                                                                                                                                                                line-height:1.45;
+                                                                                                                                                                margin:0 0 6px;
+                                                                                                                                                                overflow-wrap:anywhere}
+                                                                                                                                                                .property-location{
+                                                                                                                                                                  font-size:11px;
+                                                                                                                                                                  line-height:1.7;
+                                                                                                                                                                  color:var(--muted);
+                                                                                                                                                                  margin:0 0 10px}
+                                                                                                                                                                  .property-price{
+                                                                                                                                                                    font-size:17px;
+                                                                                                                                                                    font-weight:600;
+                                                                                                                                                                    font-variant-numeric:tabular-nums;
+                                                                                                                                                                    margin:0 0 10px}
+                                                                                                                                                                    .property-price small{
+                                                                                                                                                                      display:block;
+                                                                                                                                                                      font-size:10px;
+                                                                                                                                                                      font-weight:400;
+                                                                                                                                                                      color:var(--muted);
+                                                                                                                                                                      margin-top:3px}
+                                                                                                                                                                      .property-facts{
+                                                                                                                                                                        display:flex;
+                                                                                                                                                                        flex-wrap:wrap;
+                                                                                                                                                                        gap:5px 12px;
+                                                                                                                                                                        font-size:11px;
+                                                                                                                                                                        color:#4d6656;
+                                                                                                                                                                        margin:0 0 11px}
+                                                                                                                                                                        .property details{
+                                                                                                                                                                          font-size:12px;
+                                                                                                                                                                          line-height:1.8}
+                                                                                                                                                                          .property summary{
+                                                                                                                                                                            cursor:pointer;
+                                                                                                                                                                            color:#315a40}
+                                                                                                                                                                            .property details p{
+                                                                                                                                                                              white-space:pre-wrap;
+                                                                                                                                                                              overflow-wrap:anywhere}
+                                                                                                                                                                              .feature-list{
+                                                                                                                                                                                font-size:11px;
+                                                                                                                                                                                color:#4f6557;
+                                                                                                                                                                                line-height:1.8}
+                                                                                                                                                                                .property a{
+                                                                                                                                                                                  display:inline-block;
+                                                                                                                                                                                  font-size:11px;
+                                                                                                                                                                                  color:var(--green);
+                                                                                                                                                                                  margin-top:10px}
+                                                                                                                                                                                  .result-note{
+                                                                                                                                                                                    font-size:11px;
+                                                                                                                                                                                    color:var(--muted);
+                                                                                                                                                                                    line-height:1.7;
+                                                                                                                                                                                    margin:9px 0}
+                                                                                                                                                                                    .sr-only{
+                                                                                                                                                                                      position:absolute;
+                                                                                                                                                                                      width:1px;
+                                                                                                                                                                                      height:1px;
+                                                                                                                                                                                      padding:0;
+                                                                                                                                                                                      margin:-1px;
+                                                                                                                                                                                      overflow:hidden;
+                                                                                                                                                                                      clip:rect(0,0,0,0);
+                                                                                                                                                                                      white-space:nowrap;
+                                                                                                                                                                                      border:0}
+                                                                                                                                                                                      .gallery{
+                                                                                                                                                                                        border:0;
+                                                                                                                                                                                        padding:0;
+                                                                                                                                                                                        background:#f8faf7;
+                                                                                                                                                                                        color:#172e27;
+                                                                                                                                                                                        max-width:1100px;
+                                                                                                                                                                                        width:94vw;
+                                                                                                                                                                                        max-height:94dvh;
+                                                                                                                                                                                        border-radius:12px;
+                                                                                                                                                                                        box-shadow:0 20px 80px #071c1b55}
+                                                                                                                                                                                        .gallery::backdrop{
+                                                                                                                                                                                          background:#0a1f1ae6}
+                                                                                                                                                                                          .gallery-shell{
+                                                                                                                                                                                            display:flex;
+                                                                                                                                                                                            flex-direction:column;
+                                                                                                                                                                                            max-height:94dvh}
+                                                                                                                                                                                            .gallery-header{
+                                                                                                                                                                                              padding:18px 24px;
+                                                                                                                                                                                              display:flex;
+                                                                                                                                                                                              justify-content:space-between;
+                                                                                                                                                                                              align-items:center;
+                                                                                                                                                                                              gap:20px}
+                                                                                                                                                                                              .gallery-header h2{
+                                                                                                                                                                                                font-size:16px;
+                                                                                                                                                                                                line-height:1.4;
+                                                                                                                                                                                                margin:0}
+                                                                                                                                                                                                .gallery-header p{
+                                                                                                                                                                                                  font-size:12px;
+                                                                                                                                                                                                  color:var(--muted);
+                                                                                                                                                                                                  margin:4px 0 0}
+                                                                                                                                                                                                  .gallery-close{
+                                                                                                                                                                                                    background:transparent;
+                                                                                                                                                                                                    border:0;
+                                                                                                                                                                                                    padding:10px 0 10px 14px;
+                                                                                                                                                                                                    font-size:12px;
+                                                                                                                                                                                                    white-space:nowrap}
+                                                                                                                                                                                                    .gallery-close span{
+                                                                                                                                                                                                      font-size:24px;
+                                                                                                                                                                                                      vertical-align:middle;
+                                                                                                                                                                                                      margin-left:10px}
+                                                                                                                                                                                                      .gallery-stage{
+                                                                                                                                                                                                        position:relative;
+                                                                                                                                                                                                        min-height:180px;
+                                                                                                                                                                                                        flex:1;
+                                                                                                                                                                                                        display:flex;
+                                                                                                                                                                                                        align-items:center;
+                                                                                                                                                                                                        justify-content:center;
+                                                                                                                                                                                                        background:#102b22;
+                                                                                                                                                                                                        overflow:hidden}
+                                                                                                                                                                                                        .gallery-stage>img{
+                                                                                                                                                                                                          height:55dvh;
+                                                                                                                                                                                                          max-width:100%;
+                                                                                                                                                                                                          object-fit:contain}
+                                                                                                                                                                                                          .gallery-stage>p{
+                                                                                                                                                                                                            position:absolute;
+                                                                                                                                                                                                            font-size:13px;
+                                                                                                                                                                                                            color:white;
+                                                                                                                                                                                                            padding:30px 70px;
+                                                                                                                                                                                                            text-align:center}
+                                                                                                                                                                                                            .gallery-arrow{
+                                                                                                                                                                                                              position:absolute;
+                                                                                                                                                                                                              z-index:1;
+                                                                                                                                                                                                              top:calc(50% - 22px);
+                                                                                                                                                                                                              width:42px;
+                                                                                                                                                                                                              height:44px;
+                                                                                                                                                                                                              border:0;
+                                                                                                                                                                                                              border-radius:6px;
+                                                                                                                                                                                                              color:#173e2b;
+                                                                                                                                                                                                              background:#fffffff2;
+                                                                                                                                                                                                              font-size:30px;
+                                                                                                                                                                                                              line-height:1}
+                                                                                                                                                                                                              .gallery-arrow.prev{
+                                                                                                                                                                                                                left:12px}
+                                                                                                                                                                                                                .gallery-arrow.next{
+                                                                                                                                                                                                                  right:12px}
+                                                                                                                                                                                                                  .gallery-caption{
+                                                                                                                                                                                                                    font-size:12px;
+                                                                                                                                                                                                                    line-height:1.4;
+                                                                                                                                                                                                                    text-align:center;
+                                                                                                                                                                                                                    margin:12px 20px}
+                                                                                                                                                                                                                    .gallery-thumbs{
+                                                                                                                                                                                                                      display:flex;
+                                                                                                                                                                                                                      gap:8px;
+                                                                                                                                                                                                                      overflow-x:auto;
+                                                                                                                                                                                                                      padding:0 20px 18px;
+                                                                                                                                                                                                                      flex-shrink:0}
+                                                                                                                                                                                                                      .gallery-thumbs button{
+                                                                                                                                                                                                                        padding:0;
+                                                                                                                                                                                                                        border:2px solid transparent;
+                                                                                                                                                                                                                        border-radius:5px;
+                                                                                                                                                                                                                        flex-shrink:0;
+                                                                                                                                                                                                                        width:76px;
+                                                                                                                                                                                                                        height:58px;
+                                                                                                                                                                                                                        overflow:hidden;
+                                                                                                                                                                                                                        background:#e1e9dd}
+                                                                                                                                                                                                                        .gallery-thumbs button[aria-current=true]{
+                                                                                                                                                                                                                          border-color:#346343}
+                                                                                                                                                                                                                          .gallery-thumbs img{
+                                                                                                                                                                                                                            width:100%;
+                                                                                                                                                                                                                            height:100%;
+                                                                                                                                                                                                                            object-fit:cover}
+                                                                                                                                                                                                                            .gallery-thumbs button:focus-visible{
+                                                                                                                                                                                                                              outline-offset:-4px}
+                                                                                                                                                                                                                              @keyframes breathe{
+                                                                                                                                                                                                                                to{
+                                                                                                                                                                                                                                  opacity:.25}
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                @media(min-width:1500px){
+                                                                                                                                                                                                                                  .workspace{
+                                                                                                                                                                                                                                    border-left:1px solid var(--line);
+                                                                                                                                                                                                                                    border-right:1px solid var(--line)}
+                                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                                  @media(max-width:900px){
+                                                                                                                                                                                                                                    .workspace{
+                                                                                                                                                                                                                                      grid-template-columns:minmax(230px,30%) minmax(0,1fr)}
+                                                                                                                                                                                                                                      .intro{
+                                                                                                                                                                                                                                        padding:40px 10% 25px}
+                                                                                                                                                                                                                                        h1{
+                                                                                                                                                                                                                                          font-size:32px}
+                                                                                                                                                                                                                                          .header{
+                                                                                                                                                                                                                                            padding:0 4%}
+                                                                                                                                                                                                                                            .header-actions{
+                                                                                                                                                                                                                                              gap:14px}
+                                                                                                                                                                                                                                              .result-list{
+                                                                                                                                                                                                                                                grid-template-columns:1fr}
+                                                                                                                                                                                                                                                .property-media{
+                                                                                                                                                                                                                                                  height:220px}
+                                                                                                                                                                                                                                                  .intro-note{
+                                                                                                                                                                                                                                                    margin-top:32px}
+                                                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                                                  @media(max-width:640px){
+                                                                                                                                                                                                                                                    .header{
+                                                                                                                                                                                                                                                      height:76px;
+                                                                                                                                                                                                                                                      padding:0 20px}
+                                                                                                                                                                                                                                                      .brand strong{
+                                                                                                                                                                                                                                                        font-size:18px}
+                                                                                                                                                                                                                                                        .brand svg{
+                                                                                                                                                                                                                                                          width:32px;
+                                                                                                                                                                                                                                                          height:32px}
+                                                                                                                                                                                                                                                          .brand-small{
+                                                                                                                                                                                                                                                            font-size:8px}
+                                                                                                                                                                                                                                                            .header-actions .status{
+                                                                                                                                                                                                                                                              display:none}
+                                                                                                                                                                                                                                                              .text-button{
+                                                                                                                                                                                                                                                                font-size:10px;
+                                                                                                                                                                                                                                                                padding:8px 9px}
+                                                                                                                                                                                                                                                                .workspace{
+                                                                                                                                                                                                                                                                  display:block;
+                                                                                                                                                                                                                                                                  min-height:calc(100dvh - 76px)}
+                                                                                                                                                                                                                                                                  .intro{
+                                                                                                                                                                                                                                                                    display:none}
+                                                                                                                                                                                                                                                                    .chat-panel{
+                                                                                                                                                                                                                                                                      height:calc(100dvh - 76px);
+                                                                                                                                                                                                                                                                      min-height:420px}
+                                                                                                                                                                                                                                                                      .chat-heading{
+                                                                                                                                                                                                                                                                        padding:18px 22px}
+                                                                                                                                                                                                                                                                        .messages{
+                                                                                                                                                                                                                                                                          padding:25px 22px 18px}
+                                                                                                                                                                                                                                                                          .composer-wrap{
+                                                                                                                                                                                                                                                                            padding:10px 18px 16px}
+                                                                                                                                                                                                                                                                            .welcome>p{
+                                                                                                                                                                                                                                                                              font-size:19px}
+                                                                                                                                                                                                                                                                              .suggestions{
+                                                                                                                                                                                                                                                                                margin-top:24px;
+                                                                                                                                                                                                                                                                                max-width:none}
+                                                                                                                                                                                                                                                                                .notice{
+                                                                                                                                                                                                                                                                                  padding:10px 22px}
+                                                                                                                                                                                                                                                                                  .property-media,.property.single .property-media{
+                                                                                                                                                                                                                                                                                    height:220px}
+                                                                                                                                                                                                                                                                                    .result-list{
+                                                                                                                                                                                                                                                                                      gap:24px}
+                                                                                                                                                                                                                                                                                      .gallery{
+                                                                                                                                                                                                                                                                                        width:100vw;
+                                                                                                                                                                                                                                                                                        max-width:100vw;
+                                                                                                                                                                                                                                                                                        max-height:100dvh;
+                                                                                                                                                                                                                                                                                        border-radius:0}
+                                                                                                                                                                                                                                                                                        .gallery-shell{
+                                                                                                                                                                                                                                                                                          max-height:100dvh}
+                                                                                                                                                                                                                                                                                          .gallery-stage>img{
+                                                                                                                                                                                                                                                                                            height:52dvh}
+                                                                                                                                                                                                                                                                                            .gallery-header{
+                                                                                                                                                                                                                                                                                              padding:15px}
+                                                                                                                                                                                                                                                                                              .gallery-header h2{
+                                                                                                                                                                                                                                                                                                font-size:14px}
+                                                                                                                                                                                                                                                                                                .gallery-thumbs{
+                                                                                                                                                                                                                                                                                                  padding-left:15px}
+                                                                                                                                                                                                                                                                                                  .gallery-arrow{
+                                                                                                                                                                                                                                                                                                    width:35px}
+                                                                                                                                                                                                                                                                                                    .gallery-arrow.prev{
+                                                                                                                                                                                                                                                                                                      left:8px}
+                                                                                                                                                                                                                                                                                                      .gallery-arrow.next{
+                                                                                                                                                                                                                                                                                                        right:8px}
+                                                                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                                                                      @media(prefers-reduced-motion:reduce){
+                                                                                                                                                                                                                                                                                                        *,*::before,*::after{
+                                                                                                                                                                                                                                                                                                          animation:none!important;
+                                                                                                                                                                                                                                                                                                          scroll-behavior:auto!important;
+                                                                                                                                                                                                                                                                                                          transition:none!important}
+                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                        #gallery-image-slot{
+                                                                                                                                                                                                                                                                                                          display:flex;
+                                                                                                                                                                                                                                                                                                          align-items:center;
+                                                                                                                                                                                                                                                                                                          justify-content:center;
+                                                                                                                                                                                                                                                                                                          width:100%}
+                                                                                                                                                                                                                                                                                                          #gallery-image-slot img{
+                                                                                                                                                                                                                                                                                                            height:55dvh;
+                                                                                                                                                                                                                                                                                                            max-width:100%;
+                                                                                                                                                                                                                                                                                                            object-fit:contain}
+                                                                                                                                                                                                                                                                                                            @media(max-width:640px){
+                                                                                                                                                                                                                                                                                                              #gallery-image-slot img{
+                                                                                                                                                                                                                                                                                                                height:52dvh}
+                                                                                                                                                                                                                                                                                                              }

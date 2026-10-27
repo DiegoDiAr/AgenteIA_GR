@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123e32">
+  <meta name="description" content="Conversa con el asistente de Grupo Rentabilizarme y encuentra propiedades de su catálogo.">
+  <title>Asistente inmobiliario · Grupo Rentabilizarme</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="header">
+    <a href="/" class="brand" aria-label="Grupo Rentabilizarme, inicio">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M7 33V13l13-7 13 7v20M15 33V20h10v13M4 33h32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><span class="brand-small">GRUPO</span><strong>Rentabilizarme</strong></span>
+    </a>
+    <div class="header-actions"><span class="status" id="connection-status">Comprobando conexión</span><button class="text-button" id="new-chat" type="button">Nueva conversación</button></div>
+  </header>
+  <main class="workspace">
+    <aside class="intro" aria-label="Acerca del asistente">
+      <div class="intro-body"><div class="house-mark" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><path d="M13 64V29L40 13l27 16v35M31 64V40h18v24M8 64h64M23 25v-9h8" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+      <h1>Tu próxima propiedad empieza con una conversación.</h1>
+      <p>Cuéntanos qué buscas. Te ayudamos a explorar las opciones de Grupo Rentabilizarme, a tu ritmo.</p>
+      <div class="intro-note"><span class="small-rule"></span><p>Propiedades del catálogo.<br>Fotos de cada espacio.<br>Respuestas con contexto.</p></div></div>
+      <p class="aside-footer">GRUPO RENTABILIZARME <span>Asistente inmobiliario</span></p>
+    </aside>
+    <section class="chat-panel" aria-label="Chat inmobiliario">
+      <div class="chat-heading"><div class="assistant-dot" aria-hidden="true"></div><div><h2>Hablemos de lo que buscas</h2><p>Tu asistente inmobiliario</p></div></div>
+      <div id="config-notice" class="notice" role="status" hidden></div>
+      <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions" aria-label="Mensajes de la conversación">
+        <div id="welcome" class="welcome"><span class="message-label">ASISTENTE</span><p>Hola, bienvenido a Grupo Rentabilizarme. ¿Qué propiedad tienes en mente?</p><p class="muted">Puedes contarme la zona, si buscas comprar o alquilar y tu presupuesto.</p><div class="suggestions"><button type="button" data-prompt="Estoy buscando un departamento para comprar.">Quiero comprar un departamento <span aria-hidden="true">↗</span></button><button type="button" data-prompt="Busco una casa en alquiler.">Busco una casa en alquiler <span aria-hidden="true">↗</span></button><button type="button" data-prompt="Quisiera buscar terrenos. ¿Qué información necesitas?">Me interesan los terrenos <span aria-hidden="true">↗</span></button></div></div>
+      </div>
+      <div class="composer-wrap">
+        <div id="error" class="error" role="alert" hidden></div>
+        <form id="chat-form" class="composer"><label class="sr-only" for="message">Escribe tu mensaje</label><textarea id="message" name="message" rows="1" maxlength="4000" placeholder="Cuéntame qué estás buscando…" required></textarea><button id="send" class="send" type="submit" aria-label="Enviar mensaje"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></form>
+        <p class="composer-note">Consulta información publicada en Tokko. Confirma los detalles y la disponibilidad con Grupo Rentabilizarme.</p>
+      </div>
+    </section>
+  </main>
+  <dialog id="gallery" class="gallery" aria-labelledby="gallery-title"><div class="gallery-shell"><header class="gallery-header"><div><h2 id="gallery-title">Fotografías</h2><p id="gallery-count"></p></div><button id="gallery-close" class="gallery-close" type="button" aria-label="Cerrar galería">Cerrar <span aria-hidden="true">×</span></button></header><div class="gallery-stage"><button id="gallery-prev" class="gallery-arrow prev" type="button" aria-label="Fotografía anterior">‹</button><div id="gallery-image-slot"></div><p id="gallery-image-error" hidden>Esta fotografía no pudo cargarse. Puedes intentar abrir la ficha pública.</p><button id="gallery-next" class="gallery-arrow next" type="button" aria-label="Fotografía siguiente">›</button></div><p id="gallery-caption" class="gallery-caption"></p><div id="gallery-thumbs" class="gallery-thumbs" aria-label="Todas las fotografías"></div></div></dialog>
+</body>
+</html>
