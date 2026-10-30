@@ -4,7 +4,7 @@ let busy = false, transcript = [], galleryProperty = null, photoIndex = 0;
 const storageKey = 'rentabilizarme-chat-v1';
 function el(tag, className, content) { const node = document.createElement(tag); if (className) node.className = className; if (content != null) node.textContent = content; return node; }
 const galleryImage = el('img'); galleryImage.id = 'gallery-image'; galleryImage.alt = ''; $('#gallery-image-slot').append(galleryImage);
-function scrollEnd() { messages.scrollTop = messages.scrollHeight; }
+function scrollEnd() { if (messages.dispatchEvent(new Event('chat:scroll-request', { cancelable: true }))) messages.scrollTop = messages.scrollHeight; }
 function persist() { try { sessionStorage.setItem(storageKey, JSON.stringify(transcript)); } catch { /* Una galería muy grande puede superar la cuota; la sesión del backend sigue viva. */ } }
 function showError(message) { errorBox.textContent = message; errorBox.hidden = false; }
 function money(price) { return `${price.currency || ''} ${new Intl.NumberFormat('es-PE', { maximumFractionDigits: 2 }).format(price.amount)}`.trim(); }
@@ -50,6 +50,7 @@ function setBusy(value) { busy = value; $('#send').disabled = value; $('#new-cha
 async function send(message) {
   if (busy || !message.trim()) return;
   message = message.trim(); errorBox.hidden = true; setBusy(true);
+  messages.dispatchEvent(new Event('chat:user-sent'));
   const item = { role: 'user', text: message }; const userNode = renderMessage(item);
   const pending = el('div', 'pending', 'Preparando tu respuesta…'); pending.setAttribute('role', 'status'); messages.append(pending); input.value = ''; input.style.height = 'auto'; scrollEnd();
   try {
@@ -61,15 +62,17 @@ async function send(message) {
   } catch (error) {
     userNode.remove(); input.value = message; showError(error.message || 'No hay conexión con el servidor. Intenta nuevamente.');
     if (['session_expired', 'conversation_limit'].includes(error.code)) { const reset = el('button', '', 'Iniciar nueva conversación'); reset.type = 'button'; reset.addEventListener('click', resetChat); errorBox.append(reset); }
-  } finally { pending.remove(); setBusy(false); input.focus(); scrollEnd(); }
+  } finally { pending.remove(); setBusy(false); input.focus({ preventScroll: true }); scrollEnd(); }
 }
 async function resetChat() {
   if (busy) return;
+  setBusy(true);
   try {
     const response = await fetch('/api/session/reset', { method: 'POST' });
     if (!response.ok) throw new Error('No se pudo iniciar una conversación. Intenta nuevamente.');
-    transcript = []; persist(); messages.querySelectorAll('.message').forEach(node => node.remove()); errorBox.hidden = true; input.value = ''; input.focus(); messages.scrollTop = 0;
+    transcript = []; persist(); messages.querySelectorAll('.message').forEach(node => node.remove()); errorBox.hidden = true; input.value = ''; input.focus({ preventScroll: true }); messages.scrollTop = 0; messages.dispatchEvent(new Event('chat:reset'));
   } catch (error) { showError(error.message); }
+  finally { setBusy(false); input.focus({ preventScroll: true }); }
 }
 function openGallery(property) {
   galleryProperty = property; photoIndex = 0; $('#gallery-title').textContent = property.title; const thumbs = $('#gallery-thumbs'); thumbs.replaceChildren();
@@ -94,7 +97,7 @@ $('#chat-form').addEventListener('submit', event => { event.preventDefault(); se
 input.addEventListener('keydown', event => { if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) { event.preventDefault(); send(input.value); } });
 input.addEventListener('input', () => { input.style.height = 'auto'; input.style.height = `${Math.min(input.scrollHeight, 135)}px`; });
 $('#new-chat').addEventListener('click', resetChat);
-document.querySelectorAll('[data-prompt]').forEach(button => button.addEventListener('click', () => { if (!busy) { input.value = button.dataset.prompt; input.focus(); } }));
+document.querySelectorAll('[data-prompt]').forEach(button => button.addEventListener('click', () => { if (!busy) { input.value = button.dataset.prompt; input.focus({ preventScroll: true }); } }));
 try { const saved = JSON.parse(sessionStorage.getItem(storageKey) || '[]'); if (Array.isArray(saved)) { transcript = saved; transcript.forEach(renderMessage); scrollEnd(); } } catch { sessionStorage.removeItem(storageKey); }
 async function health() {
   try { const response = await fetch('/api/health'); if (!response.ok) throw new Error(); const data = await response.json(); const ready = data.openaiConfigured && data.tokkoConfigured;

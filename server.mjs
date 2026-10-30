@@ -15,6 +15,8 @@ const files = new Map([['/', ['index.html', 'text/html; charset=utf-8']], ['/app
 for (const route of ['/demo', '/demo/']) files.set(route, ['demo.html', 'text/html; charset=utf-8']);
 files.set('/demo.css', ['demo.css', 'text/css; charset=utf-8']);
 files.set('/demo.js', ['demo.js', 'text/javascript; charset=utf-8']);
+files.set('/demo-state.js', ['demo-state.js', 'text/javascript; charset=utf-8']);
+for (const icon of ['bed-double', 'bath', 'car-front', 'ruler']) files.set(`/demo-icons/${icon}.svg`, [`demo-icons/${icon}.svg`, 'image/svg+xml']);
 export function createApp({ env = process.env, fetchImpl = fetch, chatImpl } = {}) {
   const sessions = new Map();
   const tokko = createTokko({ apiKey: env.TOKKO_API_KEY, fetchImpl });

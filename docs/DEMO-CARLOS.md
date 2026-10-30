@@ -46,11 +46,13 @@ Para comprobar solo la interfaz: `node scripts/demo-test-server.mjs`, luego abre
 
 En ese servidor, cualquier mensaje muestra fichas de prueba. Los comandos exclusivos de pruebas `__error__`, `__empty__`, `__no-photo__` y `__slow__` permiten revisar error recuperable, cero coincidencias, ficha sin fotos y espera prolongada. No existen en el agente real. Detén el servidor con Ctrl+C.
 
+También están disponibles `__mixed__` (galerías de 11, 16 y 17 imágenes), `__short__` y `__long__` (burbujas breves y extensas). En la demo, las flechas y Home/End recorren las fichas; Enter sobre la imagen abre su galería. «Ampliar imagen» permite explorarla y Escape cierra el visor. Si subes por el historial, una respuesta nueva no interrumpe la lectura: aparece «Mensajes nuevos».
+
 La revisión de escritorio y móvil puede hacerse con anchos de 1440, 390 y 320 píxeles. Verifica envío, espera, desplazamiento, navegación entre fichas, descripción completa, fotos 1 y 17, cierre de galería y nueva conversación.
 
 ## Verificación de esta entrega
 
-- `npm.cmd test`: 116 pruebas aprobadas, incluidas las 111 regresiones anteriores.
+- `npm.cmd test`: 127 pruebas aprobadas tras el rediseño, incluidas las 116 anteriores. Véase [alcance y comprobaciones del rediseño](DEMO-REDISENO.md).
 - Navegador con vistas de 1440 × 960, 390 × 844 y 320 × 740 píxeles: sin desbordamiento horizontal de la página y con el campo de escritura visible. Son comprobaciones de viewport, no pruebas en teléfonos físicos.
 - Comprobados con el servidor sintético: envío, indicador de espera, bloqueo de doble envío, desplazamiento al final, navegación horizontal de fichas, descripción completa, galería hasta la foto 17, flechas del teclado, Escape, error recuperable y nueva conversación.
 - Comprobada la navegación a la interfaz anterior y la conservación del historial en la misma pestaña.

@@ -71,3 +71,39 @@ test('estados de error, vacío y ausencia de fotos son reproducibles solo en el 
   const empty = await (await post('__empty__')).json(); assert.deepEqual(empty.properties, []); assert.equal(empty.searches[0].count, 0);
   const noPhoto = await (await post('__no-photo__')).json(); assert.deepEqual(noPhoto.properties[0].photos, []); assert.match(noPhoto.properties[0].title, /SOLO PRUEBA/);
 });
+
+test('recursos del rediseño se sirven localmente sin abrir archivos fuera de la lista pública', async t => {
+  const base = await start(t, createApp({ env: {}, fetchImpl: async () => assert.fail('No hay solicitudes externas') }));
+  for (const path of ['/demo-state.js', '/demo-icons/bed-double.svg', '/demo-icons/bath.svg', '/demo-icons/car-front.svg', '/demo-icons/ruler.svg']) {
+    const response = await fetch(base + path);
+    assert.equal(response.status, 200);
+    assert.match(response.headers.get('content-type'), path.endsWith('.svg') ? /image\/svg\+xml/ : /text\/javascript/);
+  }
+  assert.equal((await fetch(base + '/demo-icons/../../.env')).status, 404);
+});
+test('galerías mixtas conservan las 11, 16 y 17 fotos y los datos publicados sin reinterpretarlos', async t => {
+  const base = await start(t, createDemoTestServer({ latency: 0 }));
+  const response = await fetch(base + '/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: '__mixed__' }) });
+  const data = await response.json();
+  assert.deepEqual(data.properties.map(p => p.photos.length), [11, 16, 17]);
+  for (const p of data.properties) {
+    assert.equal(p.photos.length, new Set(p.photos.map(photo => photo.url)).size);
+    for (const photo of p.photos) {
+      assert.equal(new URL(photo.url).origin, base);
+      const image = await fetch(photo.url); assert.equal(image.status, 200);
+      assert.match(await image.text(), new RegExp('/ ' + p.photos.length + '<'));
+    }
+  }
+  assert.equal(data.properties[0].bedrooms, 4);
+  assert.match(data.properties[0].description, /Tres dormitorios principales y un cuarto de servicio/);
+  assert.equal(data.properties[0].bathrooms, 2);
+  assert.equal(data.properties[0].parking, 1); assert.equal(data.properties[0].area, 90);
+});
+test('respuestas cortas y largas de prueba se identifican y no se truncan', async t => {
+  const base = await start(t, createDemoTestServer({ latency: 0 }));
+  const post = async message => (await (await fetch(base + '/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message }) })).json());
+  const short = await post('__short__'), long = await post('__long__');
+  assert.match(short.message, /^SOLO PRUEBAS/); assert.ok(short.message.length < 100);
+  assert.match(long.message, /^SOLO PRUEBAS/); assert.match(long.message, /FIN DEL TEXTO DE PRUEBA\.$/);
+  assert.ok(long.message.length > 2000); assert.deepEqual(long.properties, []);
+});
