@@ -107,3 +107,21 @@ test('respuestas cortas y largas de prueba se identifican y no se truncan', asyn
   assert.match(long.message, /^SOLO PRUEBAS/); assert.match(long.message, /FIN DEL TEXTO DE PRUEBA\.$/);
   assert.ok(long.message.length > 2000); assert.deepEqual(long.properties, []);
 });
+
+// SOLO PRUEBAS visuales: escenarios identificados del servidor aislado.
+test('resúmenes visuales sintéticos: visita progresiva, edición y asesor reutilizan datos sin enviar solicitudes', async t => {
+  const base = await start(t, createDemoTestServer({ latency: 0 }));
+  let cookie;
+  const post = async message => {
+    const response = await fetch(base + '/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json', ...(cookie ? { Cookie: cookie } : {}) }, body: JSON.stringify({ message, mode: 'demo' }) });
+    if (!cookie) cookie = response.headers.get('set-cookie').split(';')[0];
+    assert.equal(response.status, 200); return response.json();
+  };
+  const draft = await post('__visit_draft__'); assert.equal(draft.demoRequests[0].status, 'draft');
+  const full = await post('__visit_complete__'); assert.equal(full.demoRequests[0].status, 'prepared');
+  assert.deepEqual(full.properties, []);
+  const edit = await post('__visit_edit__'); assert.equal(edit.demoRequests[0].property_id, 900002); assert.equal(edit.demoRequests[0].preferred_time, '10:00');
+  const advisor = await post('__advisor__'); assert.equal(advisor.demoRequests[0].name, full.demoRequests[0].name); assert.equal(advisor.demoRequests[0].contact, full.demoRequests[0].contact);
+  for (const result of [draft, full, edit, advisor]) { assert.match(result.message, /SOLO PRUEBAS/); assert.equal(result.demoRequests[0].notified, false); assert.equal(result.demoRequests[0].confirmed, false); }
+  const markdown = await post('__markdown__'); assert.match(markdown.message, /\*\*2 meses/); assert.match(markdown.message, /SOLO PRUEBAS/);
+});

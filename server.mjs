@@ -16,11 +16,15 @@ for (const route of ['/demo', '/demo/']) files.set(route, ['demo.html', 'text/ht
 files.set('/demo.css', ['demo.css', 'text/css; charset=utf-8']);
 files.set('/demo.js', ['demo.js', 'text/javascript; charset=utf-8']);
 files.set('/demo-state.js', ['demo-state.js', 'text/javascript; charset=utf-8']);
+files.set('/message-format.mjs', ['message-format.mjs', 'text/javascript; charset=utf-8']);
+files.set('/demo-requests.js', ['demo-requests.js', 'text/javascript; charset=utf-8']);
 for (const icon of ['bed-double', 'bath', 'car-front', 'ruler']) files.set(`/demo-icons/${icon}.svg`, [`demo-icons/${icon}.svg`, 'image/svg+xml']);
-export function createApp({ env = process.env, fetchImpl = fetch, chatImpl } = {}) {
+export function createApp({ env = process.env, fetchImpl = fetch, chatImpl, clock } = {}) {
   const sessions = new Map();
   const tokko = createTokko({ apiKey: env.TOKKO_API_KEY, fetchImpl });
-  const chat = chatImpl || createChat({ apiKey: env.OPENAI_API_KEY, model: env.OPENAI_MODEL || 'gpt-4.1-mini', tokko, fetchImpl });
+  const chat = chatImpl || createChat({ apiKey: env.OPENAI_API_KEY, model: env.OPENAI_MODEL || 'gpt-4.1-mini', tokko, fetchImpl, clock,
+    diagnostics: env.AGENT_DIAGNOSTICS === '1' && ['127.0.0.1', 'localhost', '::1'].includes(env.HOST || '127.0.0.1'),
+  });
   function getSession(req, res) {
     for (const [id, s] of sessions) if (Date.now() - s.touched > TTL && !s.busy) sessions.delete(id);
     const id = req.headers.cookie?.match(/(?:^|;\s*)gr_session=([a-f0-9-]{36})(?:;|$)/)?.[1];
@@ -67,7 +71,7 @@ export function createApp({ env = process.env, fetchImpl = fetch, chatImpl } = {
         session.requests = session.requests.filter(time => Date.now() - time < 60000);
         if (session.requests.length >= 15) throw new AppError('Espera un minuto antes de enviar más mensajes.', 429, 'rate_limit');
         session.requests.push(Date.now()); session.busy = true; session.touched = Date.now();
-        try { return json(200, await chat(session, data.message.trim())); }
+        try { return json(200, await chat(session, data.message.trim(), { demo: data.mode === 'demo' })); }
         finally { session.busy = false; session.touched = Date.now(); }
       }
       json(404, { error: 'not_found', message: 'Ruta no encontrada.' });

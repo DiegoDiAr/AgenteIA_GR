@@ -7,17 +7,19 @@ import { setTimeout as delay } from 'node:timers/promises';
 import { createApp } from '../server.mjs';
 import { normalizeProperty } from '../lib/tokko.mjs';
 import { AppError } from '../lib/errors.mjs';
+import { prepareDemoRequest } from '../lib/demo-requests.mjs';
 
 export function createDemoTestServer({ latency = 450 } = {}) {
   const app = createApp({
     env: { OPENAI_API_KEY: 'synthetic-key', TOKKO_API_KEY: 'synthetic-key' },
     fetchImpl: async () => { throw new Error('El servidor de pruebas no permite solicitudes externas.'); },
-    chatImpl: async (_session, message) => {
+    chatImpl: async (session, message) => {
       await delay(message === '__slow__' ? 6000 : latency);
       if (message === '__error__') throw new AppError('SOLO PRUEBAS: fallo de conexión simulado. El mensaje se conserva para reintentar.', 503, 'synthetic_error');
       if (message === '__empty__') return { message: 'SOLO PRUEBAS: resultado vacío simulado. No representa el catálogo real de Tokko.', properties: [], searches: [{ count: 0, nextOffset: null, filters: {} }] };
       if (message === '__short__') return { message: 'SOLO PRUEBAS: respuesta breve para revisar la burbuja.', properties: [], searches: [] };
       if (message === '__long__') return { message: 'SOLO PRUEBAS: respuesta extensa de tipografía, sin recomendaciones reales.\n\n' + 'Este párrafo sintético comprueba que toda la información siga disponible y se adapte al ancho del teléfono sin recortes. '.repeat(24) + '\n\nFIN DEL TEXTO DE PRUEBA.', properties: [], searches: [] };
+      if (message === '__markdown__') return { message: 'SOLO PRUEBAS: **2 meses de garantía** y *énfasis*, con código `inline`.\n<img src=x onerror=alert(1)> es texto, no HTML ejecutable.', properties: [], searches: [] };
       const photoCounts = message === '__mixed__' ? [11, 16, 17] : [17, 17, 17];
       const properties = Array.from({ length: message === '__no-photo__' ? 1 : 3 }, (_, index) => ({
         ...normalizeProperty({
@@ -38,6 +40,18 @@ export function createDemoTestServer({ latency = 450 } = {}) {
           public_url: `https://example.test/propiedad-sintetica/${index + 1}`,
         }), resultIndex: index + 1,
       }));
+
+      if (['__visit_draft__', '__visit_complete__', '__visit_edit__', '__advisor__'].includes(message)) {
+        const changes = {
+          __visit_draft__: { kind: 'visit', property_id: properties[0].id, name: 'SOLO PRUEBA · Persona ficticia' },
+          __visit_complete__: { kind: 'visit', contact: 'SOLO-PRUEBA-000', preferred_date: 'mañana', preferred_time: '16:00' },
+          __visit_edit__: { kind: 'visit', property_id: properties[1].id, preferred_date: 'el lunes', preferred_time: '10:00' },
+          __advisor__: { kind: 'advisor' },
+        }[message];
+        const prepared = prepareDemoRequest(session.demoState, { property_id: null, name: null, contact: null, preferred_date: null, preferred_time: null, comment: null, reset_fields: [], ...changes }, new Map(properties.map(p => [p.id, p])), { now: new Date('2026-10-30T14:00:00Z') });
+        session.demoState = prepared.state;
+        return { message: 'SOLO PRUEBAS: resumen con datos ficticios. No se ha enviado ni reservado nada.', properties: [], searches: [], demoRequests: [prepared.request] };
+      }
       return { message: 'SOLO PRUEBAS: estas fichas son sintéticas. Permiten revisar la presentación, los controles y todas las imágenes de cada galería. No son recomendaciones ni resultados de Tokko.', properties, searches: [{ count: properties.length, nextOffset: null, filters: {} }] };
     },
   });

@@ -165,3 +165,15 @@ body.demo {
 }
 @media(max-height:650px) and (min-width:901px) { .demo-sidebar-note { padding-top:20px; } .demo-sidebar-note p { margin:7px 0 12px; } .demo-sidebar h1 { font-size:23px; margin-top:12px; } .demo-contact { margin-top:20px; } .demo-sidebar-footer { display:none; } }
 @media(prefers-reduced-motion:reduce) { .demo .message,.demo .pending::before { animation:none; } .demo * { scroll-behavior:auto!important; transition:none!important; } }
+
+/* Resúmenes de atención comercial: estado temporal y explícitamente simulado. */
+.demo .demo-request { margin-top:12px; padding:16px; border:1px solid #c7dcd3; border-radius:14px; background:#f0f7f3; max-width:460px; overflow-wrap:anywhere; }
+.demo .demo-request h3 { margin:0 0 8px; font-size:15px; color:#123e32; }
+.demo .demo-request-status { font-size:12px; font-weight:700; line-height:1.5; color:#205541; margin:0 0 8px; }
+.demo .demo-request-note { font-size:12px; line-height:1.5; color:#52675d; margin:8px 0; }
+.demo .demo-request dl { display:grid; grid-template-columns:minmax(0,110px) minmax(0,1fr); gap:6px 12px; font-size:12px; line-height:1.5; margin:12px 0; }
+.demo .demo-request dt { color:#52675d; }
+.demo .demo-request dd { margin:0; min-width:0; white-space:pre-wrap; }
+.demo .demo-request button { min-height:44px; padding:8px 13px; border:1px solid #a8c5b7; border-radius:9px; background:#fff; color:#123e32; cursor:pointer; font:inherit; font-size:12px; }
+.demo .demo-request button:focus-visible { outline:2px solid #267858; outline-offset:3px; }
+@media(max-width:360px) { .demo .demo-request { padding:12px; } .demo .demo-request dl { grid-template-columns:1fr; gap:3px; } .demo .demo-request dd { margin-bottom:6px; } }

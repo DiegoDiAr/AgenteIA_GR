@@ -1,0 +1,302 @@
+{
+  "checkedOn": "2026-10-30",
+  "mode": "GET de solo lectura; campos públicos seleccionados; sin respuestas completas",
+  "tokkoGets": 8,
+  "openaiRequests": 0,
+  "requests": [
+    {
+      "number": 1,
+      "resource": "location/quicksearch/",
+      "httpStatus": 200,
+      "params": {
+        "q": "san miguel",
+        "scope": "full",
+        "limit": 100,
+        "offset": 0
+      },
+      "returned": 100,
+      "reportedTotal": 100,
+      "hasNext": false,
+      "limaCandidateCount": 7,
+      "necessaryCandidates": [
+        {
+          "id": 250516,
+          "name": "SAN MIGUEL",
+          "type": "Barrio",
+          "full_location": "Peru | Lima | Lima | San Miguel (Lima) | SAN MIGUEL"
+        },
+        {
+          "id": 247182,
+          "name": "SAN MIGUEL",
+          "type": "Barrio",
+          "full_location": "Peru | Lima | Lima | Carabayllo | SAN MIGUEL"
+        }
+      ],
+      "finding": "El padre San Miguel (Lima) figura en la jerarquía de un hijo, pero su registro no aparece en estos 100 resultados."
+    },
+    {
+      "number": 2,
+      "resource": "location/quicksearch/",
+      "httpStatus": 200,
+      "params": {
+        "q": "San Miguel (Lima)",
+        "scope": "minimal",
+        "limit": 100,
+        "offset": 0
+      },
+      "returned": 1,
+      "reportedTotal": 1,
+      "hasNext": false,
+      "necessaryCandidates": [
+        {
+          "id": 250468,
+          "name": "San Miguel (Lima)",
+          "type": "Barrio",
+          "full_location": "Peru | Lima | Lima | San Miguel (Lima)"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "resource": "property/7233794/",
+      "httpStatus": 200,
+      "id": 7233794,
+      "reference": "GAP7233794",
+      "type": {
+        "id": 2,
+        "name": "Departamento"
+      },
+      "location": {
+        "id": 248359,
+        "name": "Miraflores",
+        "type": "Barrio",
+        "full_location": "Peru | Lima | Lima | Miraflores",
+        "stateId": 252
+      },
+      "operationId": 1,
+      "prices": [
+        {
+          "currency": "USD",
+          "price": 279854
+        },
+        {
+          "currency": "PEN",
+          "price": 989801
+        }
+      ],
+      "status": 2,
+      "web_price": true,
+      "photoCount": 12,
+      "total_surface": 170
+    },
+    {
+      "number": 4,
+      "resource": "property/search/",
+      "httpStatus": 200,
+      "params": {
+        "current_localization_id": [
+          248359
+        ],
+        "current_localization_type": "division",
+        "price_from": 0,
+        "price_to": 1000000,
+        "currency": "PEN",
+        "operation_types": [
+          1
+        ],
+        "property_types": [
+          2
+        ],
+        "filters": [],
+        "only_available": "checked",
+        "limit": 100,
+        "offset": 0,
+        "order_by": "price",
+        "order": "asc"
+      },
+      "returned": 1,
+      "reportedTotal": 1,
+      "hasNext": false,
+      "propertyIds": [
+        7233794
+      ],
+      "finding": "El inmueble buscado cumple este conjunto real de filtros."
+    },
+    {
+      "number": 5,
+      "resource": "location/quicksearch/",
+      "httpStatus": 200,
+      "params": {
+        "q": "miraflores",
+        "scope": "full",
+        "limit": 100,
+        "offset": 0
+      },
+      "returned": 100,
+      "reportedTotal": 100,
+      "hasNext": false,
+      "limaCandidateCount": 22,
+      "necessaryCandidates": [
+        {
+          "id": 248359,
+          "name": "Miraflores",
+          "type": "Barrio",
+          "full_location": "Peru | Lima | Lima | Miraflores"
+        },
+        {
+          "id": 248398,
+          "name": "MIRAFLORES",
+          "type": "Barrio",
+          "full_location": "Peru | Lima | Lima | Miraflores | MIRAFLORES"
+        },
+        {
+          "id": 240072,
+          "name": "MIRAFLORES",
+          "type": "Localidad",
+          "full_location": "Peru | Lima | Yauyos | MIRAFLORES"
+        }
+      ],
+      "previousResolverSelectedIds": [
+        240072
+      ],
+      "finding": "El código anterior eliminaba Barrio antes de priorizar Lima metropolitana y seleccionaba Yauyos."
+    },
+    {
+      "number": 6,
+      "resource": "property/search/",
+      "httpStatus": 200,
+      "params": {
+        "current_localization_id": [
+          240072
+        ],
+        "current_localization_type": "division",
+        "price_from": 0,
+        "price_to": 1000000,
+        "currency": "PEN",
+        "operation_types": [
+          1
+        ],
+        "property_types": [
+          2
+        ],
+        "filters": [],
+        "only_available": "checked",
+        "limit": 100,
+        "offset": 0,
+        "order_by": "price",
+        "order": "asc"
+      },
+      "returned": 0,
+      "reportedTotal": 0,
+      "hasNext": false,
+      "propertyIds": [],
+      "onlyChangedFromRequest4": "current_localization_id",
+      "finding": "Con los demás filtros idénticos, el ID erróneo reproduce el vacío."
+    },
+    {
+      "number": 7,
+      "resource": "property/search/",
+      "httpStatus": 200,
+      "params": {
+        "current_localization_id": [
+          250468
+        ],
+        "current_localization_type": "division",
+        "price_from": 0,
+        "price_to": 500000,
+        "currency": "PEN",
+        "operation_types": [
+          1
+        ],
+        "property_types": [
+          2
+        ],
+        "filters": [],
+        "only_available": "checked",
+        "limit": 100,
+        "offset": 0,
+        "order_by": "price",
+        "order": "asc"
+      },
+      "correctedResolverSelectedIds": [
+        250468
+      ],
+      "returned": 3,
+      "reportedTotal": 3,
+      "hasNext": false,
+      "properties": [
+        {
+          "id": 9485687,
+          "typeId": 2,
+          "locationId": 250468,
+          "status": 2,
+          "operationId": 1,
+          "pricePEN": 414000,
+          "photoCount": 15
+        },
+        {
+          "id": 7267790,
+          "typeId": 2,
+          "locationId": 250468,
+          "status": 2,
+          "operationId": 1,
+          "pricePEN": 465675,
+          "photoCount": 11
+        },
+        {
+          "id": 9487738,
+          "typeId": 2,
+          "locationId": 250468,
+          "status": 2,
+          "operationId": 1,
+          "pricePEN": 479300,
+          "photoCount": 16
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "resource": "property/search/",
+      "httpStatus": 200,
+      "params": {
+        "current_localization_id": [
+          248359
+        ],
+        "current_localization_type": "division",
+        "price_from": 0,
+        "price_to": 500000,
+        "currency": "PEN",
+        "operation_types": [
+          1
+        ],
+        "property_types": [
+          2
+        ],
+        "filters": [],
+        "only_available": "checked",
+        "limit": 100,
+        "offset": 0,
+        "order_by": "price",
+        "order": "asc"
+      },
+      "correctedResolverSelectedIds": [
+        248359
+      ],
+      "returned": 0,
+      "reportedTotal": 0,
+      "hasNext": false,
+      "propertyIds": [],
+      "onlyChangedFromRequest4": "price_to",
+      "finding": "PEN 989801 supera el máximo de PEN 500000. No hay un falso vacío para estos filtros."
+    }
+  ],
+  "additionalPublicVerification": {
+    "resource": "https://gruporentabilizarme.com/Propiedades/Detalle?id=7233794",
+    "httpStatus": 200,
+    "photoTokkoIds": [
+      7233794
+    ],
+    "note": "GET al sitio público, sin credenciales. La coincidencia de IDs se observó en esta publicación; no se presume para otros enlaces."
+  },
+  "limits": "Sin OpenAI ni cambios al CRM. Las búsquedas de propiedades devolvieron páginas completas según total y next para esos filtros; el quicksearch amplio NO se considera exhaustivo. No se hicieron GET adicionales para una conversación completa después del parche."
+}

@@ -1,3 +1,6 @@
+import { renderMessageText } from '/message-format.mjs';
+import { renderDemoRequest } from '/demo-requests.js';
+const isDemo = document.body.classList.contains('demo');
 const $ = selector => document.querySelector(selector);
 const messages = $('#messages'), input = $('#message'), errorBox = $('#error'), dialog = $('#gallery');
 let busy = false, transcript = [], galleryProperty = null, photoIndex = 0;
@@ -5,7 +8,7 @@ const storageKey = 'rentabilizarme-chat-v1';
 function el(tag, className, content) { const node = document.createElement(tag); if (className) node.className = className; if (content != null) node.textContent = content; return node; }
 const galleryImage = el('img'); galleryImage.id = 'gallery-image'; galleryImage.alt = ''; $('#gallery-image-slot').append(galleryImage);
 function scrollEnd() { if (messages.dispatchEvent(new Event('chat:scroll-request', { cancelable: true }))) messages.scrollTop = messages.scrollHeight; }
-function persist() { try { sessionStorage.setItem(storageKey, JSON.stringify(transcript)); } catch { /* Una galería muy grande puede superar la cuota; la sesión del backend sigue viva. */ } }
+function persist() { if (isDemo) return; try { sessionStorage.setItem(storageKey, JSON.stringify(transcript)); } catch { /* Una galería muy grande puede superar la cuota; la sesión del backend sigue viva. */ } }
 function showError(message) { errorBox.textContent = message; errorBox.hidden = false; }
 function money(price) { return `${price.currency || ''} ${new Intl.NumberFormat('es-PE', { maximumFractionDigits: 2 }).format(price.amount)}`.trim(); }
 function renderProperty(p, count) {
@@ -38,7 +41,15 @@ function renderProperty(p, count) {
   return card;
 }
 function renderMessage(item) {
-  const node = el('article', `message ${item.role}`); node.append(el('span', 'message-label', item.role === 'user' ? 'TÚ' : 'ASISTENTE'), el('p', 'message-text', item.text));
+  const node = el('article', `message ${item.role}`);
+  const body = el('p', 'message-text');
+  if (item.role === 'assistant') renderMessageText(body, item.text); else body.textContent = item.text;
+  node.append(el('span', 'message-label', item.role === 'user' ? 'TÚ' : 'ASISTENTE'), body);
+  if (isDemo) for (const request of item.demoRequests || []) node.append(renderDemoRequest(request, document, kind => {
+    if (busy) return;
+    input.value = kind === 'visit' ? 'Quiero corregir mi solicitud de visita: ' : 'Quiero corregir mi solicitud de contacto: ';
+    input.focus();
+  }));
   if (item.properties?.length) { const list = el('div', 'result-list'); item.properties.forEach(p => list.append(renderProperty(p, item.properties.length))); node.append(list); }
   for (const search of item.searches || []) {
     if (search.nextOffset !== null) node.append(el('p', 'result-note', search.partialFeatureScan ? 'Se han revisado parte de las opciones para comprobar tus características. Puedes pedirme que siga buscando.' : 'Hay más opciones. Puedes pedirme que muestre los siguientes resultados.'));
@@ -54,11 +65,11 @@ async function send(message) {
   const item = { role: 'user', text: message }; const userNode = renderMessage(item);
   const pending = el('div', 'pending', 'Preparando tu respuesta…'); pending.setAttribute('role', 'status'); messages.append(pending); input.value = ''; input.style.height = 'auto'; scrollEnd();
   try {
-    const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message }) });
+    const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message, ...(isDemo ? { mode: 'demo' } : {}) }) });
     const data = await response.json();
     if (!response.ok) { const error = new Error(data.message || 'No se pudo enviar el mensaje.'); error.code = data.error; throw error; }
     transcript.push(item);
-    const answer = { role: 'assistant', text: data.message, properties: data.properties || [], searches: data.searches || [] }; transcript.push(answer); renderMessage(answer); persist();
+    const answer = { role: 'assistant', text: data.message, properties: data.properties || [], searches: data.searches || [], ...(isDemo ? { demoRequests: data.demoRequests || [] } : {}) }; transcript.push(answer); renderMessage(answer); persist();
   } catch (error) {
     userNode.remove(); input.value = message; showError(error.message || 'No hay conexión con el servidor. Intenta nuevamente.');
     if (['session_expired', 'conversation_limit'].includes(error.code)) { const reset = el('button', '', 'Iniciar nueva conversación'); reset.type = 'button'; reset.addEventListener('click', resetChat); errorBox.append(reset); }
@@ -98,7 +109,7 @@ input.addEventListener('keydown', event => { if (event.key === 'Enter' && !event
 input.addEventListener('input', () => { input.style.height = 'auto'; input.style.height = `${Math.min(input.scrollHeight, 135)}px`; });
 $('#new-chat').addEventListener('click', resetChat);
 document.querySelectorAll('[data-prompt]').forEach(button => button.addEventListener('click', () => { if (!busy) { input.value = button.dataset.prompt; input.focus({ preventScroll: true }); } }));
-try { const saved = JSON.parse(sessionStorage.getItem(storageKey) || '[]'); if (Array.isArray(saved)) { transcript = saved; transcript.forEach(renderMessage); scrollEnd(); } } catch { sessionStorage.removeItem(storageKey); }
+try { const saved = isDemo ? [] : JSON.parse(sessionStorage.getItem(storageKey) || '[]'); if (Array.isArray(saved)) { transcript = saved; transcript.forEach(renderMessage); scrollEnd(); } } catch { sessionStorage.removeItem(storageKey); }
 async function health() {
   try { const response = await fetch('/api/health'); if (!response.ok) throw new Error(); const data = await response.json(); const ready = data.openaiConfigured && data.tokkoConfigured;
     $('#connection-status').textContent = ready ? 'Asistente configurado' : 'Configuración pendiente'; $('#connection-status').classList.toggle('ready', ready);

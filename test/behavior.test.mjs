@@ -88,7 +88,7 @@ test('cualquier distrito publicado por Tokko se puede consultar sin lista cerrad
 
 test('ubicaciones duplicadas de Tokko con la misma jerarquía no piden una calle', async () => {
   const requests = [];
-  const tokko = createTokko({ apiKey: 'synthetic-key', fetchImpl: provider({ locations: [district('Cieneguilla', 10), district('Cieneguilla', 20)], requests }) });
+  const tokko = createTokko({ apiKey: 'synthetic-key', fetchImpl: provider({ locations: [district('Cieneguilla', 10), district('Cieneguilla', 20)], properties: [property(101, {location:district('Cieneguilla',10)})], requests }) });
   const result = await tokko.search({ location: 'Cieneguilla' });
   assert.equal(result.properties.length, 1); assert.deepEqual(JSON.parse(searchRequest(requests).searchParams.get('data')).current_localization_id, [10, 20]);
 });

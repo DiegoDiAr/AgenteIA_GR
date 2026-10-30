@@ -57,3 +57,7 @@ La revisión de escritorio y móvil puede hacerse con anchos de 1440, 390 y 320 
 - Comprobados con el servidor sintético: envío, indicador de espera, bloqueo de doble envío, desplazamiento al final, navegación horizontal de fichas, descripción completa, galería hasta la foto 17, flechas del teclado, Escape, error recuperable y nueva conversación.
 - Comprobada la navegación a la interfaz anterior y la conservación del historial en la misma pestaña.
 - No se ejecutaron conversaciones reales de OpenAI ni lecturas reales de Tokko durante esta fase. La evaluación de inteligencia y latencia de proveedores queda pendiente de una demostración real autorizada.
+
+
+## Atención comercial simulada
+Consulta [ATENCION-COMERCIAL-DEMO.md](ATENCION-COMERCIAL-DEMO.md) para probar solicitudes progresivas y editables de visita y asesor. No se envían mensajes ni se reservan citas. El procedimiento oficial espera información de Carlos en config/commercial-process.mjs.

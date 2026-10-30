@@ -1,0 +1,57 @@
+{
+  "sanDistrict": {
+    "id": 250468,
+    "name": "San Miguel (Lima)",
+    "type": "Barrio",
+    "full_location": "Peru | Lima | Lima | San Miguel (Lima)"
+  },
+  "sanSector": {
+    "id": 250516,
+    "name": "SAN MIGUEL",
+    "type": "Barrio",
+    "full_location": "Peru | Lima | Lima | San Miguel (Lima) | SAN MIGUEL"
+  },
+  "otherSanSector": {
+    "id": 247182,
+    "name": "SAN MIGUEL",
+    "type": "Barrio",
+    "full_location": "Peru | Lima | Lima | Carabayllo | SAN MIGUEL"
+  },
+  "mirDistrict": {
+    "id": 248359,
+    "name": "Miraflores",
+    "type": "Barrio",
+    "full_location": "Peru | Lima | Lima | Miraflores"
+  },
+  "mirChild": {
+    "id": 248398,
+    "name": "MIRAFLORES",
+    "type": "Barrio",
+    "full_location": "Peru | Lima | Lima | Miraflores | MIRAFLORES"
+  },
+  "mirYauyos": {
+    "id": 240072,
+    "name": "MIRAFLORES",
+    "type": "Localidad",
+    "full_location": "Peru | Lima | Yauyos | MIRAFLORES"
+  },
+  "mirOther": {
+    "id": 246566,
+    "name": "MIRAFLORES",
+    "type": "Barrio",
+    "full_location": "Peru | Lima | Lima | Ate Vitarte | MIRAFLORES"
+  },
+  "publishedPrices": [
+    {
+      "currency": "USD",
+      "price": 279854,
+      "period": 0
+    },
+    {
+      "currency": "PEN",
+      "price": 989801,
+      "period": 0
+    }
+  ],
+  "_note": "Campos públicos mínimos observados el 30/10/2026. Solo regresiones offline; no es un catálogo de producción ni una respuesta completa del proveedor."
+}
